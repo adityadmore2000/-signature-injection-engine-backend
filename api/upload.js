@@ -17,14 +17,15 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/", upload.single("pdf"), (req, res) => {
-    if(!req.file){
-        return res.status(400).json({error:"No pdf uploaded!!!"})
+    if (!req.file) {
+        return res.status(400).json({ error: "No pdf uploaded!!!" })
     }
-    res.json({
-        id:req.file.filename,
-        url:`/pdf/${req.file.filename}`
+    const generatedId = req.file.filename;
+
+    return res.json({
+        id: generatedId,
+        url: `/pdf/${generatedId}`
     })
-    return res.json({ id: req.generatedId });
 });
 
 export default router;
